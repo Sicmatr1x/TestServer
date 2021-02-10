@@ -12,7 +12,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/receive")
+@RequestMapping("/mcafee")
 public class ReceiveController {
 
     @Autowired
@@ -32,8 +32,20 @@ public class ReceiveController {
         return responseEntity;
     }
 
-    @PostMapping("/file/{filename}/size/{size}")
+    @PostMapping("/f/{filename}/s/{size}")
     public ResponseEntity file(@PathVariable("filename") String filename, @PathVariable("size") Integer size, @RequestBody(required = true) SliceEntity sliceEntity) {
+        System.out.println(sliceEntity);
+        return this.receiveService.file(filename, size, sliceEntity);
+    }
+
+    @GetMapping("/f/{filename}/s/{size}/seq/{seq}/b/{context}")
+    public ResponseEntity file(@PathVariable("filename") String filename,
+                               @PathVariable("size") Integer size,
+                               @PathVariable("seq") Integer seq,
+                               @PathVariable("context") String context) {
+        SliceEntity sliceEntity = new SliceEntity();
+        sliceEntity.setSeq(seq);
+        sliceEntity.setContext(context);
         System.out.println(sliceEntity);
         return this.receiveService.file(filename, size, sliceEntity);
     }

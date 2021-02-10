@@ -13,8 +13,11 @@ public class ReceiveServiceImpl implements ReceiveService {
 
     private Map<String, List<SliceEntity>> map;
 
+    private Map<Integer, Integer> seqListMap;
+
     public ReceiveServiceImpl() {
         this.map = new HashMap<>();
+        this.seqListMap = new HashMap<>();
     }
 
     @Override
@@ -24,7 +27,14 @@ public class ReceiveServiceImpl implements ReceiveService {
             this.map.put(filename, new ArrayList<>());
         }
         List<SliceEntity> list = this.map.get(filename);
-        list.add(sliceEntity);
+        int seq = sliceEntity.getSeq();
+        if (!this.seqListMap.containsKey(seq)) { // 如果不包含当前数据段
+            list.add(sliceEntity);
+            this.seqListMap.put(seq, list.size()-1);
+        } else {
+            System.out.println("已包含seq=" + seq + ", 当前list.size()=" + list.size());
+        }
+
         if (list.size() == size) { // 如果已经收到全部数据段
             Collections.sort(list);
             System.out.println("接收完毕: [" + list.size() + "/" + size + "]");
@@ -38,7 +48,8 @@ public class ReceiveServiceImpl implements ReceiveService {
             entity = new ResponseEntity("write to file", sliceEntity.getSeq());
             try {
                 String base64Code = stringBuilder.toString();
-                base64Code = base64Code.replaceAll("%rn%", "\r\n");
+                base64Code = base64Code.replaceAll("-rn-", "\r\n");
+                base64Code = base64Code.replaceAll("-", "/");
                 System.out.println("写入文件: " + filename + ", base64.length=" + base64Code.length());
                 FileToBase64.decoderBase64File(base64Code, filename);
             } catch (IOException e) {
