@@ -1,4 +1,4 @@
-package com.sicmatr1x.testserver.util;
+package com.sicmatr1x.qrutil.util;
 
 import sun.misc.BASE64Decoder;
 import sun.misc.BASE64Encoder;
@@ -58,5 +58,24 @@ public class FileToBase64 {
         FileOutputStream out = new FileOutputStream(targetPath);
         out.write(buffer);
         out.close();
+    }
+
+    public static void main(String[] args) {
+        try {
+            String text = "中文测试";
+            String encodeText = encodeBase64String(text);
+            System.out.println(encodeText);
+            String decodeText = decodeBase64String(encodeText);
+            System.out.println(decodeText);
+
+            String base64Code = encodeBase64File("test.png");
+            base64Code = base64Code.replaceAll("\r\n", "%rn%");
+            System.out.println(base64Code);
+            base64Code = base64Code.replaceAll("%rn%", "\r\n");
+            decoderBase64File(base64Code, "test1.png");
+//            toFile(base64Code, "/Users/Crazy/Desktop/zyb.txt");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

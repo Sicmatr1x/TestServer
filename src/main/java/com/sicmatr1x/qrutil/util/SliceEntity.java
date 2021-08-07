@@ -1,9 +1,9 @@
-package com.sicmatr1x.testserver.entity;
+package com.sicmatr1x.qrutil.util;
 
 /**
  * 批量发送POST请求body参数json转换对象
  */
-public class SliceEntity implements Comparable{
+public class SliceEntity {
     /**
      * 当前切片所在序号
      */
@@ -38,11 +38,5 @@ public class SliceEntity implements Comparable{
                 "seq=" + seq +
                 ", context='" + context + '\'' +
                 '}';
-    }
-
-    @Override
-    public int compareTo(Object o) {
-        SliceEntity entity = (SliceEntity)o;
-        return this.getSeq() - entity.getSeq();
     }
 }
