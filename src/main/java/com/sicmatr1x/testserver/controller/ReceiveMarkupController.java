@@ -29,6 +29,7 @@ public class ReceiveMarkupController {
         // 获取当前系统时间
         map.put("time", df.format(new Date()));
         responseEntity.setData(map);
+        System.out.println("helloGet");
         return responseEntity;
     }
 

@@ -38,7 +38,8 @@ public class ReceiveServiceImpl implements ReceiveService {
             entity = new ResponseEntity("write to file", sliceEntity.getSeq());
             try {
                 String base64Code = stringBuilder.toString();
-                base64Code = base64Code.replaceAll("%rn%", "\r\n");
+                base64Code = base64Code.replaceAll("-rn-", "\r\n");
+                base64Code = base64Code.replaceAll("--", "/");
                 System.out.println("写入文件: " + filename + ", base64.length=" + base64Code.length());
                 FileToBase64.decoderBase64File(base64Code, filename);
             } catch (IOException e) {
