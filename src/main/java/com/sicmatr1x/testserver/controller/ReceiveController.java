@@ -32,6 +32,30 @@ public class ReceiveController {
         return responseEntity;
     }
 
+    @GetMapping("/file/{filename}/size/{size}/s/{seq}/c/{context}")
+    public ResponseEntity file(@PathVariable("filename") String filename,
+                               @PathVariable("size") Integer size,
+                               @PathVariable("seq") Integer seq,
+                               @PathVariable("context") String context) {
+        SliceEntity sliceEntity = new SliceEntity();
+        sliceEntity.setSeq(seq);
+        sliceEntity.setContext(context);
+        System.out.println(sliceEntity);
+        return this.receiveService.file(filename, size, sliceEntity);
+    }
+
+    @GetMapping("/file/{filename}/size/{size}")
+    public ResponseEntity checkFileSeqList(@PathVariable("filename") String filename,
+                               @PathVariable("size") Integer size) {
+        return this.receiveService.checkFileSeqList(filename, size);
+    }
+
+    @GetMapping("/file/{filename}/s/{seq}")
+    public ResponseEntity getFileSeq(@PathVariable("filename") String filename,
+                                                        @PathVariable("seq") Integer seq) {
+        return this.receiveService.getFileSeq(filename, seq);
+    }
+
     @PostMapping("/file/{filename}/size/{size}")
     public ResponseEntity file(@PathVariable("filename") String filename, @PathVariable("size") Integer size, @RequestBody(required = true) SliceEntity sliceEntity) {
         System.out.println(sliceEntity);

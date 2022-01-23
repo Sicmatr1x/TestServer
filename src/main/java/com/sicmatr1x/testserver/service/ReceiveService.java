@@ -12,5 +12,26 @@ public interface ReceiveService {
      */
     public ResponseEntity file(String filename, Integer size, SliceEntity sliceEntity);
 
+    /**
+     * 获取当前文件在内存中缺失的数据片编号
+     * @param filename 文件名
+     * @return 提示信息
+     */
+    public ResponseEntity checkFileSeqList(String filename, Integer size);
 
+    /**
+     * 获取当前文件在内存中编号数据片内容
+     * @param filename 文件名
+     * @param seq 数据片编号
+     * @return
+     */
+    public ResponseEntity getFileSeq(String filename, Integer seq);
+
+    /**
+     * 获取当前文件手动写入磁盘
+     * @param filename 文件名
+     * @param size 文件总共含多少个数据段
+     * @return
+     */
+    public ResponseEntity writeToDisk(String filename, Integer size);
 }
