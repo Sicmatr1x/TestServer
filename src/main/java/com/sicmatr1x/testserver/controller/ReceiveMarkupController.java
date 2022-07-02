@@ -12,7 +12,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/mcafee")
+@RequestMapping("/io")
 public class ReceiveMarkupController {
 
     @Autowired
@@ -37,6 +37,16 @@ public class ReceiveMarkupController {
     public ResponseEntity file(@PathVariable("filename") String filename, @PathVariable("size") Integer size, @RequestBody(required = true) SliceEntity sliceEntity) {
         System.out.println(sliceEntity);
         return this.receiveService.file(filename, size, sliceEntity);
+    }
+
+    @GetMapping("/check/f/{filename}/s/{size}")
+    public ResponseEntity checkFileSeqList(@PathVariable("filename") String filename, @PathVariable("size") Integer size) {
+        return this.receiveService.checkFileSeqList(filename, size);
+    }
+
+    @GetMapping("/info/f/{filename}/s/{size}")
+    public ResponseEntity getFileSeq(@PathVariable("filename") String filename, @PathVariable("size") Integer size) {
+        return this.receiveService.getFileSeq(filename, size);
     }
 
     @GetMapping("/f/{filename}/s/{size}/seq/{seq}/b/{context}")

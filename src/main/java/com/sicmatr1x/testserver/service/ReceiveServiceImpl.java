@@ -1,5 +1,6 @@
 package com.sicmatr1x.testserver.service;
 
+import com.sicmatr1x.qrutil.util.MD5Util;
 import com.sicmatr1x.testserver.common.ResponseEntity;
 import com.sicmatr1x.testserver.entity.SliceEntity;
 import com.sicmatr1x.testserver.util.FileToBase64;
@@ -69,8 +70,10 @@ public class ReceiveServiceImpl implements ReceiveService {
                 String base64Code = stringBuilder.toString();
                 base64Code = base64Code.replaceAll("-rn-", "\r\n");
                 base64Code = base64Code.replaceAll("--", "/");
-                System.out.println("写入文件: " + filename + ", base64.length=" + base64Code.length());
-                FileToBase64.decoderBase64File(base64Code, filename);
+                String filepath = "./files/" + filename;
+                System.out.println("写入文件: " + filepath + ", base64.length=" + base64Code.length());
+                String md5 = FileToBase64.decoderBase64File(base64Code, filepath);
+                System.out.println("MD5=" + md5);
             } catch (IOException e) {
                 entity.setSuccess(false);
                 entity.setMessage(e.getMessage());

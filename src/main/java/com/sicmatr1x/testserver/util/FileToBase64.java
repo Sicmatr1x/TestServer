@@ -1,5 +1,6 @@
 package com.sicmatr1x.testserver.util;
 
+import com.sicmatr1x.qrutil.util.MD5Util;
 import sun.misc.BASE64Decoder;
 import sun.misc.BASE64Encoder;
 
@@ -40,11 +41,12 @@ public class FileToBase64 {
      * @param targetPath
      * @throws Exception
      */
-    public static void decoderBase64File(String base64Code,String targetPath) throws IOException {
+    public static String decoderBase64File(String base64Code, String targetPath) throws IOException {
         byte[] buffer = new BASE64Decoder().decodeBuffer(base64Code);
         FileOutputStream out = new FileOutputStream(targetPath);
         out.write(buffer);
         out.close();
+        return MD5Util.getMD5Two(targetPath);
     }
 
     /**
