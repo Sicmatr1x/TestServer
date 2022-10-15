@@ -12,7 +12,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/io")
+@RequestMapping("/mcafee")
 public class ReceiveMarkupController {
 
     @Autowired
