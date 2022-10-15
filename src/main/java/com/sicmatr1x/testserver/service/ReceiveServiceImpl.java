@@ -74,6 +74,8 @@ public class ReceiveServiceImpl implements ReceiveService {
                 System.out.println("写入文件: " + filepath + ", base64.length=" + base64Code.length());
                 String md5 = FileToBase64.decoderBase64File(base64Code, filepath);
                 System.out.println("MD5=" + md5);
+                // 生成文件后清空map
+                this.map.put(filename, null);
             } catch (IOException e) {
                 entity.setSuccess(false);
                 entity.setMessage(e.getMessage());
