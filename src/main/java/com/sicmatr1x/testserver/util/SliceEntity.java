@@ -1,4 +1,4 @@
-package util;
+package com.sicmatr1x.testserver.util;
 
 /**
  * 批量发送POST请求body参数json转换对象

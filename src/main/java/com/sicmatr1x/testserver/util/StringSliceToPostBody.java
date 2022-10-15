@@ -1,4 +1,4 @@
-package util;
+package com.sicmatr1x.testserver.util;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
