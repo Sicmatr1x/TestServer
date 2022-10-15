@@ -1,12 +1,14 @@
 package com.sicmatr1x.testserver.util;
 
+import com.sicmatr1x.qrutil.util.MD5Util;
+
 import java.io.*;
 import java.util.Base64;
 
-import sun.misc.BASE64Decoder;
-import sun.misc.BASE64Encoder;
-
 public class FileToBase64 {
+
+    static final Base64.Decoder decoder = Base64.getDecoder();
+    static final Base64.Encoder encoder = Base64.getEncoder();
 
     public static String encodeBase64String(String text) throws UnsupportedEncodingException {
         Base64.Encoder encoder = Base64.getEncoder();
@@ -31,7 +33,7 @@ public class FileToBase64 {
         byte[] buffer = new byte[(int)file.length()];
         inputFile.read(buffer);
         inputFile.close();
-        return new BASE64Encoder().encode(buffer);
+        return encoder.encode(buffer).toString();
     }
 
     /**
@@ -41,11 +43,11 @@ public class FileToBase64 {
      * @throws Exception
      */
     public static String decoderBase64File(String base64Code, String targetPath) throws IOException {
-        byte[] buffer = new BASE64Decoder().decodeBuffer(base64Code);
+        byte[] buffer = decoder.decode(base64Code);
         FileOutputStream out = new FileOutputStream(targetPath);
         out.write(buffer);
         out.close();
-        return new BASE64Encoder().encode(buffer);
+        return MD5Util.getMD5Two(targetPath);
     }
 
     /**

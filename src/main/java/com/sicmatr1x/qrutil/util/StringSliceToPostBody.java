@@ -147,7 +147,7 @@ public class StringSliceToPostBody {
     public static void main(String[] args) throws IOException {
         // certutil -hashfile D:\1.txt md5
 //        String filepath = "MEMO20210210.006"; // 3537 c85292cf17743cbdd590a5752a30a4ac
-        String filename = "CPPLearn.7z"; // d90aa33bbafe68faf25f31916471eafd
+        String filename = "WINGMAN.7z"; // d90aa33bbafe68faf25f31916471eafd
         String folder = "files/";
         String filepath = folder + filename;
 
